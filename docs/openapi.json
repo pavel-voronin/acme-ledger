@@ -1,0 +1,189 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Acme Ledger/Wallet API",
+    "description": "A Ledger/Wallet API for processing transactions between accounts",
+    "version": "1.0.0"
+  },
+  "components": {
+    "schemas": {
+      "NewTransaction": {
+        "type": "object",
+        "properties": {
+          "from_account": {
+            "type": "string",
+            "format": "cuid",
+            "example": "cjld2cyuq0000t3rmniod1foy"
+          },
+          "to_account": {
+            "type": "string",
+            "format": "cuid",
+            "example": "jkdfjfhg23423hjfhgfghjfhg"
+          },
+          "amount": {
+            "type": "string",
+            "example": "1.05"
+          }
+        }
+      },
+      "Transaction": {
+        "allOf": [
+          {
+            "type": "object",
+            "properties": {
+              "tx_id": {
+                "type": "string",
+                "format": "cuid",
+                "example": "tx76576jhgjyr6rfhg76rfu67"
+              }
+            }
+          },
+          {
+            "$ref": "#/components/schemas/NewTransaction"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "created_at": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  "paths": {
+    "/v1/accounts/{account_id}": {
+      "get": {
+        "tags": [
+          "Accounts"
+        ],
+        "summary": "Get account info",
+        "description": "Get account info",
+        "parameters": [
+          {
+            "name": "account_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "cuid",
+              "example": "cjld2cyuq0000t3rmniod1foy"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Account Object",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "account_id": {
+                      "type": "string",
+                      "format": "cuid",
+                      "example": "cjld2cyuq0000t3rmniod1foy"
+                    },
+                    "balance": {
+                      "type": "string",
+                      "example": "100.5"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad account id format"
+          },
+          "404": {
+            "description": "Account not found"
+          }
+        }
+      }
+    },
+    "/v1/transactions": {
+      "get": {
+        "tags": [
+          "Transactions"
+        ],
+        "summary": "Get transactions list, filtered",
+        "description": "Get transactions list, filtered",
+        "parameters": [
+          {
+            "name": "account_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "cuid",
+              "example": "cjld2cyuq0000t3rmniod1foy"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Transactions list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Transaction"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Transactions"
+        ],
+        "summary": "Create new transaction",
+        "description": "Create new transaction",
+        "requestBody": {
+          "description": "Transaction body",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewTransaction"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Transactions list",
+            "headers": {
+              "Location": {
+                "description": "Location of the new resource",
+                "schema": {
+                  "type": "string",
+                  "example": "/v1/transaction/txkjhk..."
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Transaction"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          }
+        }
+      }
+    }
+  }
+}
