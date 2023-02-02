@@ -13,6 +13,8 @@ docker cp ./db/seed.sql acme-ledger-db-1:/seed.sql
 docker-compose  exec db psql postgres postgres -f /seed.sql
 ```
 
+## Usage
+
 Make transactions:
 
 ```
@@ -20,6 +22,20 @@ curl --request POST \
   --url http://localhost:3000/v1/transfers \
   --header 'content-type: application/json' \
   --data '{"from_account": "cjld2cyuq0000t3rmniod1foy","to_account": "cldmt86vb0023356kz6cc10p0","amount": "0.000001"}'
+```
+
+Check balance:
+
+```
+curl --request GET \
+  --url 'http://localhost:3000/v1/transfers?account_id=cjld2cyuq0000t3rmniod1foy'
+```
+
+Get transactions:
+
+```
+curl --request GET \
+  --url 'http://localhost:3000/v1/transfers?account_id=cjld2cyuq0000t3rmniod1foy'
 ```
 
 ## Plan
@@ -37,7 +53,7 @@ curl --request POST \
 - [x] Dockerize // 18:20
 - [x] Stop timer // 18:21
 - [?] Documentation
-- [ ] What is next?
+- [x] What is next?
 
 ## TODO
 
