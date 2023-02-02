@@ -6,11 +6,23 @@
 docker-compose up
 ```
 
+Run migrations:
+
+```
+docker-compose exec app npx prisma migrate dev
+```
+
 Seed with 2 accounts:
 
 ```
-docker cp ./db/seed.sql acme-ledger-db-1:/seed.sql
-docker-compose  exec db psql postgres postgres -f /seed.sql
+docker-compose cp ./db/seed.sql db:/seed.sql
+docker-compose exec db psql postgres postgres -f /seed.sql
+```
+
+## Next run
+
+```
+docker-compose up
 ```
 
 ## Usage
@@ -21,14 +33,15 @@ Make transactions:
 curl --request POST \
   --url http://localhost:3000/v1/transfers \
   --header 'content-type: application/json' \
+  --header 'idempotency-key: abcdef123456' \
   --data '{"from_account": "cjld2cyuq0000t3rmniod1foy","to_account": "cldmt86vb0023356kz6cc10p0","amount": "0.000001"}'
 ```
 
-Check balance:
+Check the balance:
 
 ```
 curl --request GET \
-  --url 'http://localhost:3000/v1/transfers?account_id=cjld2cyuq0000t3rmniod1foy'
+  --url http://localhost:3000/v1/accounts/cjld2cyuq0000t3rmniod1foy
 ```
 
 Get transactions:
@@ -38,7 +51,13 @@ curl --request GET \
   --url 'http://localhost:3000/v1/transfers?account_id=cjld2cyuq0000t3rmniod1foy'
 ```
 
-## Plan
+## Tests
+
+```
+npm run tests
+```
+
+## Development track
 
 - [x] Develop the plan
 - [x] Start timer 4h // 14:21
@@ -51,8 +70,8 @@ curl --request GET \
 - [x] Development // 17:22
 - [x] Test // 18:00
 - [x] Dockerize // 18:20
-- [x] Stop timer // 18:21
-- [?] Documentation
+- [x] Stop timer // 18:21 - 4h
+- [x] Documentation
 - [x] What is next?
 
 ## TODO
@@ -63,3 +82,4 @@ curl --request GET \
 - Dockerfile security!
 - Make code entities' names more consistent
 - monitor & debug
+- indexes

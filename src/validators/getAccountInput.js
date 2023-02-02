@@ -1,6 +1,6 @@
 import { isCuid } from "../helpers.js";
 
-export const accountId = async (req, res, next) => {
+export const getAccountInput = async (req, res, next) => {
   const { account_id } = req.params;
 
   if (!isCuid(account_id)) {

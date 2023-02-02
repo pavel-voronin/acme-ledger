@@ -18,11 +18,20 @@ model Accounts {
 }
 
 model Transfers {
-  tx_id           String   @id @default(cuid())
-  from_account    Accounts @relation(name: "from", fields: [from_account_id], references: [account_id])
-  from_account_id String   @map("from_acount_id")
-  to_account      Accounts @relation(name: "to", fields: [to_account_id], references: [account_id])
-  to_account_id   String   @map("to_acount_id")
-  amount          Float
-  created_at      DateTime @default(now())
+  tx_id            String             @id @default(cuid())
+  from_account     Accounts           @relation(name: "from", fields: [from_account_id], references: [account_id])
+  from_account_id  String             @map("from_acount_id")
+  to_account       Accounts           @relation(name: "to", fields: [to_account_id], references: [account_id])
+  to_account_id    String             @map("to_acount_id")
+  amount           Float
+  created_at       DateTime           @default(now())
+  TransferRequests TransferRequests[]
+}
+
+model TransferRequests {
+  idempotencyKey  String    @id @db.VarChar(32)
+  requestBodyHash String    @db.Char(32)
+  transfer_id     String
+  transfer        Transfers @relation(fields: [transfer_id], references: [tx_id])
+  created_at      DateTime  @default(now())
 }

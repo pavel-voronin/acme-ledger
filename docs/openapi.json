@@ -18,7 +18,7 @@
           "to_account": {
             "type": "string",
             "format": "cuid",
-            "example": "jkdfjfhg23423hjfhgfghjfhg"
+            "example": "ckdfjfhg23423hjfhgfghjfhg"
           },
           "amount": {
             "type": "string",
@@ -34,7 +34,7 @@
               "tx_id": {
                 "type": "string",
                 "format": "cuid",
-                "example": "tx76576jhgjyr6rfhg76rfu67"
+                "example": "cx76576jhgjyr6rfhg76rfu67"
               }
             }
           },
@@ -149,6 +149,18 @@
         ],
         "summary": "Create new transfer",
         "description": "Create new transfer",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Idempotency-Key",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "abcdef1234",
+              "maxLength": 32
+            }
+          }
+        ],
         "requestBody": {
           "description": "Transfer body",
           "content": {
@@ -167,7 +179,7 @@
                 "description": "Location of the new resource",
                 "schema": {
                   "type": "string",
-                  "example": "/v1/transfer/txkjhk..."
+                  "example": "/v1/transfer/cjld2cyuq0000t3rmniod1foy"
                 }
               }
             },
@@ -181,6 +193,9 @@
           },
           "400": {
             "description": "Bad request"
+          },
+          "409": {
+            "description": "Reuse of Idempotency-Key with another body"
           }
         }
       }

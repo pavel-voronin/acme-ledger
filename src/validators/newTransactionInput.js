@@ -1,6 +1,35 @@
 import { isCuid } from "../helpers.js";
 
-export const newTransaction = async (req, res, next) => {
+export const newTransactionInput = async (req, res, next) => {
+  const idempotencyKey = req.get("Idempotency-Key");
+
+  if (idempotencyKey === undefined) {
+    res.status(400).send({
+      status: "error",
+      errors: [
+        {
+          message: "Specify Idempotency-Key header",
+          code: "idempotency_key__not_specified",
+        },
+      ],
+    });
+    return;
+  }
+
+  if (!/^\w{1,32}$/.test(idempotencyKey)) {
+    res.status(400).send({
+      status: "error",
+      errors: [
+        {
+          message:
+            "Idempotency-Key header should have up to 32 alphanumeric chars",
+          code: "idempotency_key__bad_format",
+        },
+      ],
+    });
+    return;
+  }
+
   const { from_account, to_account, amount } = req.body;
 
   if (typeof from_account !== "string" || !isCuid(from_account)) {

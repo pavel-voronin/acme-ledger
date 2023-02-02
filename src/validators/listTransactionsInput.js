@@ -1,6 +1,6 @@
 import { isCuid } from "../helpers.js";
 
-export const listTransactions = async (req, res, next) => {
+export const listTransactionsInput = async (req, res, next) => {
   const { account_id } = req.query;
 
   if (account_id === undefined) {
