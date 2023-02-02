@@ -2,8 +2,8 @@ POST http://localhost:3000/v1/transfers
 Content-Type: application/json
 
 {
-  "from_account": "cldmt86vb0023356kz6cc10p0",
-  "to_account": "cjld2cyuq0000t3rmniod1foy",
+  "from_account": "cjld2cyuq0000t3rmniod1foy",
+  "to_account": "cldmt86vb0023356kz6cc10p0",
   "amount": "0.000001"
 }
 

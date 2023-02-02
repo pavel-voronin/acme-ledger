@@ -42,13 +42,13 @@ export const newTransaction = async (req, res, next) => {
     return;
   }
 
-  if (parseFloat(amount) === 0) {
+  if (parseFloat(amount) < 0) {
     res.status(400).send({
       status: "error",
       errors: [
         {
-          message: "`amount` should be more then 0",
-          code: "amount__is_zero",
+          message: "`amount` should be positive",
+          code: "amount__is_zero_or_negative",
         },
       ],
     });

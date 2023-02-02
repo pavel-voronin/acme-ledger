@@ -15,7 +15,6 @@ model Accounts {
   balance        Float       @default(0)
   from_transfers Transfers[] @relation("from")
   to_transfers   Transfers[] @relation("to")
-  version        Int         @default(0)
 }
 
 model Transfers {
