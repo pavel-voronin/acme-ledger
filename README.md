@@ -9,7 +9,7 @@
 - [x] Project structure + github repo + docker compose // 14:34
 - [x] Domain design // 14:49
 - [x] OpenApi specs // 15:19
-- [ ] Data models design
+- [x] Data models design // 15:32
 - [ ] Development
 - [ ] Test
 - [ ] Documentation

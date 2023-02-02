@@ -9,3 +9,20 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Accounts {
+  account_id        String         @id @default(cuid())
+  balance           Float          @default(0)
+  from_transactions Transactions[] @relation("from")
+  to_transactions   Transactions[] @relation("to")
+}
+
+model Transactions {
+  tx_id           String   @id @default(cuid())
+  from_account    Accounts @relation(name: "from", fields: [from_account_id], references: [account_id])
+  from_account_id String   @map("from_acount_id")
+  to_account      Accounts @relation(name: "to", fields: [to_account_id], references: [account_id])
+  to_account_id   String   @map("to_acount_id")
+  amount          Float
+  created_at      DateTime @default(now())
+}
