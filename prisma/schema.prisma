@@ -11,13 +11,14 @@ datasource db {
 }
 
 model Accounts {
-  account_id        String         @id @default(cuid())
-  balance           Float          @default(0)
-  from_transactions Transactions[] @relation("from")
-  to_transactions   Transactions[] @relation("to")
+  account_id     String      @id @default(cuid())
+  balance        Float       @default(0)
+  from_transfers Transfers[] @relation("from")
+  to_transfers   Transfers[] @relation("to")
+  version        Int         @default(0)
 }
 
-model Transactions {
+model Transfers {
   tx_id           String   @id @default(cuid())
   from_account    Accounts @relation(name: "from", fields: [from_account_id], references: [account_id])
   from_account_id String   @map("from_acount_id")

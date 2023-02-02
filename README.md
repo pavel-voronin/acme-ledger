@@ -10,9 +10,15 @@
 - [x] Domain design // 14:49
 - [x] OpenApi specs // 15:19
 - [x] Data models design // 15:32
-- [ ] Development
+- [x] Development // 17:22
 - [ ] Test
 - [ ] Documentation
 - [ ] Dockerize
 - [ ] Stop timer
 - [ ] What is next?
+
+## TODO
+
+- validators (cuid)
+- errors mechanism
+- transactions list paging: cursors or offset+limit

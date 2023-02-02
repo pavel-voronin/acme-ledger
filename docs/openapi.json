@@ -2,12 +2,12 @@
   "openapi": "3.0.3",
   "info": {
     "title": "Acme Ledger/Wallet API",
-    "description": "A Ledger/Wallet API for processing transactions between accounts",
+    "description": "A Ledger/Wallet API for processing transfers between accounts",
     "version": "1.0.0"
   },
   "components": {
     "schemas": {
-      "NewTransaction": {
+      "NewTransfer": {
         "type": "object",
         "properties": {
           "from_account": {
@@ -26,7 +26,7 @@
           }
         }
       },
-      "Transaction": {
+      "Transfer": {
         "allOf": [
           {
             "type": "object",
@@ -39,7 +39,7 @@
             }
           },
           {
-            "$ref": "#/components/schemas/NewTransaction"
+            "$ref": "#/components/schemas/NewTransfer"
           },
           {
             "type": "object",
@@ -105,13 +105,13 @@
         }
       }
     },
-    "/v1/transactions": {
+    "/v1/transfers": {
       "get": {
         "tags": [
-          "Transactions"
+          "Transfers"
         ],
-        "summary": "Get transactions list, filtered",
-        "description": "Get transactions list, filtered",
+        "summary": "Get transfers list, filtered",
+        "description": "Get transfers list, filtered",
         "parameters": [
           {
             "name": "account_id",
@@ -126,13 +126,13 @@
         ],
         "responses": {
           "200": {
-            "description": "Transactions list",
+            "description": "Transfers list",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Transaction"
+                    "$ref": "#/components/schemas/Transfer"
                   }
                 }
               }
@@ -145,36 +145,36 @@
       },
       "post": {
         "tags": [
-          "Transactions"
+          "Transfers"
         ],
-        "summary": "Create new transaction",
-        "description": "Create new transaction",
+        "summary": "Create new transfer",
+        "description": "Create new transfer",
         "requestBody": {
-          "description": "Transaction body",
+          "description": "Transfer body",
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NewTransaction"
+                "$ref": "#/components/schemas/NewTransfer"
               }
             }
           }
         },
         "responses": {
           "200": {
-            "description": "Transactions list",
+            "description": "Transfers list",
             "headers": {
               "Location": {
                 "description": "Location of the new resource",
                 "schema": {
                   "type": "string",
-                  "example": "/v1/transaction/txkjhk..."
+                  "example": "/v1/transfer/txkjhk..."
                 }
               }
             },
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Transaction"
+                  "$ref": "#/components/schemas/Transfer"
                 }
               }
             }
