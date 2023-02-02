@@ -9,6 +9,14 @@ services:
       - db:/var/lib/postgresql/data
     ports:
       - "5432:5432"
+  app:
+    build: .
+    ports:
+      - "3000:3000" # "3000-3001:3000" works for scaling
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: "postgresql://postgres:postgres@db:5432/postgres?schema=public"
 
 volumes:
   db:

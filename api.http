@@ -14,4 +14,4 @@ GET http://localhost:3000/v1/transfers?account_id=cjld2cyuq0000t3rmniod1foy
 
 ###
 
-http://localhost:3000/v1/accounts/cldmt86vb0023356kz6cc10pj
+http://localhost:3000/v1/accounts/cjld2cyuq0000t3rmniod1foy
