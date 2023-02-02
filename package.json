@@ -1,0 +1,21 @@
+{
+  "name": "acme-ledger",
+  "version": "1.0.0",
+  "description": "## Plan",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon src/index.js",
+    "test": "vitest"
+  },
+  "author": "Pavel Voronin <pavel.a.voronin@gmail.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^2.0.20",
+    "prisma": "^4.9.0",
+    "vitest": "^0.28.3"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
