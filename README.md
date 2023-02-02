@@ -41,7 +41,9 @@ curl --request POST \
 
 ## TODO
 
-- validators (cuid)
+- cuid -> cuid2
 - errors mechanism
 - transactions list paging: cursors or offset+limit
 - Dockerfile security!
+- Make code entities' names more consistent
+- monitor & debug
