@@ -1,7 +1,7 @@
 {
   "name": "acme-ledger",
   "version": "1.0.0",
-  "description": "## Plan",
+  "description": "A Ledger/Wallet API for processing transactions between accounts",
   "main": "index.js",
   "type": "module",
   "scripts": {
